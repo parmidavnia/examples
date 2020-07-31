@@ -1,6 +1,8 @@
 #include <stdio.h>
 
-int branch(int a, int b){
+// simple branch
+
+int func1(int a, int b){
     int res = 0;
     if( a < b ){
         res = a * b;
@@ -14,6 +16,6 @@ int main(){
     // if a<b a*b, else a/b
     int a = 10;
     int b = 5;
-    int res = branch(a,b);
+    int res = func1(a,b);
     return 0;
 }
