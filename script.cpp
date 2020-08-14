@@ -29,7 +29,11 @@ for (i in id_list.node_id){
         if node[i][j] in Single run BB:
 
             if (node[i][j].type == phi){
-                if (node[i][j].mask is correct) output_list.append(parent_nodes(parent BB))
+                if (node[i][j].mask is correct) {
+                    output_list.append(parent_nodes(parent BB))
+                    saved_faulty_nodes.append(node[i][j])
+                }
+
                 else print (node[i][j].mask is incorrect)
             }
             
