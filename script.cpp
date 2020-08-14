@@ -24,6 +24,7 @@ for node in saved_faulty_nodes:
 
 
 //step 2:  to update the faulty list and the output list
+output_list = op_list
 
 for (i in op_list.node_id){
     for (j in op_list.iterations[i]){
