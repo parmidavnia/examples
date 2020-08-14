@@ -25,8 +25,8 @@ for node in saved_faulty_nodes:
 
 //step 2:  to update the faulty list and the output list
 
-for (i in id_list.node_id){
-    for (j in id_list.iterations[i]){
+for (i in op_list.node_id){
+    for (j in op_list.iterations[i]){
         if node[i][j] in Single run BB:
             if (node[i][j].type == phi){
                 if (node[i][j].mask is correct) {
