@@ -17,19 +17,29 @@ for (i in id_list.node_id){
 }
 //the list will be a list of faulty node_ids and the iteration they behaved faulty in.
 
+for node in saved_faulty_nodes:
+    if node[i][j] not found in id_list:
+        remove from saved_faulty_nodes
+//so if node was corrected by setting guards on parents it would be considered to be correct itself and no longer in faulty list
 
+//now to update the faulty list and the output list
 
 for (i in id_list.node_id){
     for (j in id_list.iterations[i]){
-        if (node[i][j].type == phi){
-            if (node[i][j].mask is correct) output_list.append(livenodes(parent BB))
-            else print (node[i][j].mask is incorrect)
-        }
-        
-        //for other nodes
-        else{
-            output_list.append(nodes(this BB))
-        }
+        if node[i][j] in Single run BB:
+
+            if (node[i][j].type == phi){
+                if (node[i][j].mask is correct) output_list.append(parent_nodes(parent BB))
+                else print (node[i][j].mask is incorrect)
+            }
+            
+            //for other nodes
+            else{
+                output_list.append(parent_nodes(this BB))
+                saved_faulty_nodes.append(node[i][j])
+            }
+
     
     }
 }
+
