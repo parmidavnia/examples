@@ -1,3 +1,8 @@
+//Step 1: From SW we extract list of critcal nodes in the loops -> Store nodes, and Liveouts
+
+//Step 2: We run hardware tracer on these nodes and extract their values with their iterations
+
+//Step 3: We run followin algorith: In this algorithm we compare software values with hardware values and if they don't match we mark them as faulty node.
 
 input: id_list = id_list = List([node_id,i_0,i_1,...]) , BB_Dependence_Graph
 definition: livenodes(BB[n]) = store nodes in that basic block, and nodes generating values on the output edges of that BB, either passing to other basic blocks or
@@ -5,6 +10,8 @@ being a carried dependency.
 // for first run, node_id = {store_ID[], br_ID[], ret_ID} and for all iterations
 //parent in a loop means one iteration back or last iteration if from outside
 // this means the same iteration of the BB 
+
+//Step 4: If the node wasn't among faulty nodes, we revmoe it from the list of critical nodes.
 
 //removing any correctly behaving node and iteration from the list
 // for each node id and all of its iterations.
@@ -16,6 +23,11 @@ for (i in id_list.node_id){
     if (any node_id left without any iterations) remove node_id
 }
 //the list will be a list of faulty node_ids and the iteration they behaved faulty in.
+
+
+
+//Step 5: We set guard values for critical nodes and run the hardware again and collect data about faulty nodes data.
+
 
 for node in saved_faulty_nodes:
     if node[i][j] not found in id_list:
