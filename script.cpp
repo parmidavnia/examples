@@ -1,44 +1,33 @@
-//Step 1: From SW we extract list of critcal nodes in the loops -> Store nodes, and Liveouts
 
-//Step 2: We run hardware tracer on these nodes and extract their values with their iterations
-
-//Step 3: We run followin algorith: In this algorithm we compare software values with hardware values and if they don't match we mark them as faulty node.
-
-input: id_list = id_list = List([node_id,i_0,i_1,...]) , BB_Dependence_Graph
-definition: livenodes(BB[n]) = store nodes in that basic block, and nodes generating values on the output edges of that BB, either passing to other basic blocks or
-being a carried dependency.
-// for first run, node_id = {store_ID[], br_ID[], ret_ID} and for all iterations
-//parent in a loop means one iteration back or last iteration if from outside
-// this means the same iteration of the BB 
-
-//Step 4: If the node wasn't among faulty nodes, we revmoe it from the list of critical nodes.
-
-//removing any correctly behaving node and iteration from the list
-// for each node id and all of its iterations.
-for (i in id_list.node_id){
-    for (j in id_list.iterations[i]){
-        if (sw.node[i][j] == hw.node[i][j])
-            remove j from list
-        }
-    if (any node_id left without any iterations) remove node_id
-}
-//the list will be a list of faulty node_ids and the iteration they behaved faulty in.
+input: id_list = op_list = List([node_id],[i_0,i_1,...]) , BB_Dependence_Graph
+// op_list= list of the nodes givne as input to the algorithm, for first tun op_list={store_ID[], br_ID[], ret_ID}. for other runs, it is the list of nodes
+//and iterations that the hardware has dumped as a trace.
+//the dependence graph has the information of dependence between nodes and basic blocks, and loop carried dependences.
 
 
+helper definitions: 
+    livenodes(BB[n]) = store nodes in that basic block, and nodes generating values on the output edges of that BB, either passing to other basic blocks or
+    being a carried dependency.
+    parent_nodes(BB[n]) = nodes of which their output a certain node depends upon. this definition has to be given the scope of basic block we want to limit the nodes to.
+    this BB = This basic block 
+    parent BB = parent basic block
+    saved_faulty_nodes = a list of the nodes that 
+//the saved faulty nodes list will be a list of faulty node_ids and the iteration they behaved faulty in. this list will update in each run and at the end 
+//it should contain the locations of the root bugs.
 
-//Step 5: We set guard values for critical nodes and run the hardware again and collect data about faulty nodes data.
-
-
+//step 1: update the faulty list: as we are in the next run, the parent nodes of the previous run's faulty nodes are being traced and guarded. if the last run's faulty
+//node does not appear in the input list again, it means that by guarding it's parent the node started behaving correctly, meaning it was a problem with the inputs 
+//so the node is removed from faulty node list.
 for node in saved_faulty_nodes:
-    if node[i][j] not found in id_list:
+    if node[i][j] not found in op_list:
         remove from saved_faulty_nodes
-//so if node was corrected by setting guards on parents it would be considered to be correct itself and no longer in faulty list
 
-//now to update the faulty list and the output list
+
+//step 2:  to update the faulty list and the output list
 
 for (i in id_list.node_id){
     for (j in id_list.iterations[i]){
-
+        if node[i][j] in Single run BB:
             if (node[i][j].type == phi){
                 if (node[i][j].mask is correct) {
                     output_list.append(parent_nodes(parent BB))
@@ -54,7 +43,6 @@ for (i in id_list.node_id){
                 saved_faulty_nodes.append(node[i][j])
             }
 
-    
     }
 }
 
