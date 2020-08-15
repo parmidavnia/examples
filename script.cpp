@@ -1,6 +1,11 @@
 
+For purpose of debuging we extract each top-level loop into its own new function and hence we look at nested loops as multiple function call. With this technique we localize each loop iteration interval and we debug each loop independent from the rest of the function.
+    While we extract the loop we preserver the data and memory dependencies.
 
-Start Algorithm(Module, report_nodes):
+
+//Function the focus function
+//report nodes: list of buggy nodes. The list at initial step is empty and we gradually feel the list.
+Start Algorithm(Function, report_nodes):
 
 
 input: id_list = op_list = List([node_id],[i_0,i_1,...]) , BB_Dependence_Graph
@@ -68,9 +73,13 @@ Repeat step 4
     
 
 Step 5:
+//We call start_algorithm function recursively on each function call/loops and append buggy nodes to report_nodes list
+//the algorithm finishes when we visited all of the call graph of the parent function.
+//Since the HLS framework doesn't supporrt recursive calls, then the call graph would be tree and we don't need to be
+//worry about recursion.
 for node in output_list:
     if node.type is (Function or Clousure)
-         Start_algoirthm (node, report_nodes)
+         Start_algoirthm(node, report_nodes)
     else
        report_nodes.append(node)
         
