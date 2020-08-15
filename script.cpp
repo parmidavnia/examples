@@ -24,7 +24,6 @@ for node in saved_faulty_nodes:
 
 
 //step 2:  to update the faulty list and the output list
-visited.append(output_list)
 output_list = op_list
 
 for (i in op_list.node_id){
@@ -32,8 +31,14 @@ for (i in op_list.node_id){
         if node[i][j] in Single run BB:
             if (node[i][j].type == phi){
                 if (node[i][j].mask is correct) {
-                    output_list.append(parent_nodes(parent BB))
-                    saved_faulty_nodes.append(node[i][j])
+                    for parent_node in parent_nodes(this BB)
+                    if parent_node not in visited:
+                        output_list.append(parent_node)
+                        saved_faulty_nodes.append(node[i][j])
+                        if output_list.isChanged()
+                            continue
+                        else
+                            terminate
                 }
 
                 else print (node[i][j].mask is incorrect)
@@ -53,4 +58,6 @@ for (i in op_list.node_id){
 
     }
 }
+
+visited.append(output_list)
 
