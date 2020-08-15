@@ -1,6 +1,6 @@
 
 input: id_list = op_list = List([node_id],[i_0,i_1,...]) , BB_Dependence_Graph
-// op_list= list of the nodes givne as input to the algorithm, for first tun op_list={store_ID[], br_ID[], ret_ID}. for other runs, it is the list of nodes
+// op_list= list of the nodes givne as input to the algorithm, for first tun op_list={store_ID[], br_ID[], ret_ID, carry_dep[]}. for other runs, it is the list of nodes
 //and iterations that the hardware has dumped as a trace.
 //the dependence graph has the information of dependence between nodes and basic blocks, and loop carried dependences.
 
