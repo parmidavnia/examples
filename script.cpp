@@ -1,4 +1,8 @@
 
+
+Start Algorithm(Module, report_nodes):
+
+
 input: id_list = op_list = List([node_id],[i_0,i_1,...]) , BB_Dependence_Graph
 // op_list= list of the nodes givne as input to the algorithm, for first tun op_list={store_ID[], br_ID[], ret_ID, carry_dep[]}. for other runs, it is the list of nodes
 //and iterations that the hardware has dumped as a trace.
@@ -53,11 +57,23 @@ for (i in op_list.node_id){
                 if output_list.isChanged()
                     continue
                 else
-                    terminate
+                    Jump to step 5
             }
 
     }
 }
 
 visited.append(output_list)
+Repeat step 4
+    
+
+Step 5:
+for node in output_list:
+    if node.type is (Function or Clousure)
+         Start_algoirthm (node, report_nodes)
+    else
+       report_nodes.append(node)
+        
+        
+return report_nodes;
 
