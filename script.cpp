@@ -24,6 +24,7 @@ for node in saved_faulty_nodes:
 
 
 //step 2:  to update the faulty list and the output list
+visited.append(output_list)
 output_list = op_list
 
 for (i in op_list.node_id){
@@ -40,8 +41,14 @@ for (i in op_list.node_id){
             
             //for other nodes
             else{
-                output_list.append(parent_nodes(this BB))
+                for parent_node in parent_nodes(this BB)
+                    if parent_node not in visited:
+                        output_list.append(parent_node)
                 saved_faulty_nodes.append(node[i][j])
+                if output_list.isChanged()
+                    continue
+                else
+                    terminate
             }
 
     }
