@@ -8,7 +8,9 @@ datapacket = List([node_id],[i_0,i_1,...],[helper values of the node])
 for (i in debug_enable_list.node_id){
     for (j in id_list.iterations[i]){
         if (node[i][j].value != node[i][j].guard_value)
-            memorybuffer.append(node[i][j].datapacket)
             node[i][j].output = node[i][j].guard_value
+           node.[i][j].datapacked.flag = 1
         }
+     memorybuffer.append(node[i][j].datapacket)
+
 }
