@@ -40,7 +40,7 @@ for (i in op_list.node_id){
     for (j in op_list.iterations[i]){
             if (node[i][j].type == phi){
                 if (node[i][j].mask is correct) {
-                    for parent_node in parent_nodes(this BB)
+                    for parent_node in parent_nodes(parent BB)
                     if parent_node not in visited:
                         output_list.append(parent_node)
                         saved_faulty_nodes.append(node[i][j])
