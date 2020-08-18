@@ -38,7 +38,6 @@ output_list = op_list
 
 for (i in op_list.node_id){
     for (j in op_list.iterations[i]){
-        if node[i][j] in Single run BB:
             if (node[i][j].type == phi){
                 if (node[i][j].mask is correct) {
                     for parent_node in parent_nodes(this BB)
